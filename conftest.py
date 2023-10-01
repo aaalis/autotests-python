@@ -18,5 +18,4 @@ def browser(request):
         raise pytest.UsageError("--lang should be ru or en")
     browser = webdriver.Chrome(options)
     yield browser
-    print("\nquit browser..")
     browser.quit()
