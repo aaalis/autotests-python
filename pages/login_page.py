@@ -1,4 +1,7 @@
+from selenium.webdriver.common.by import By
+
 from pages.locators import LoginPageLocators
+from pages.locators import MainPageLocators
 from pages.base_page import BasePage
 
 
@@ -16,3 +19,14 @@ class LoginPage(BasePage):
 
     def __should_be_register_form(self):
         assert self.is_element_present(*LoginPageLocators.REG_FORM), "Registration form is not exist"
+
+    def login(self, login, password):
+        login_input = self.browser.find_element(*LoginPageLocators.LOGIN_USERNAME_INPUT)
+        login_input.send_keys(login)
+
+        password_input = self.browser.find_element(*LoginPageLocators.LOGIN_PASS_INPUT)
+        password_input.send_keys(password)
+
+        self.browser.find_element(*LoginPageLocators.LOGIN_BTN_SUBMIT).click()
+
+        assert self.is_element_present(*MainPageLocators.SUCCESS_ALERT), "Failed login attempt"
